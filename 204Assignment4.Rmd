@@ -1,0 +1,165 @@
+---
+title: "Assignment 4"
+author: "Sidney Gerst, Natalie Dornan"
+date: "May 30, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include = FALSE}
+
+#load packages
+library(tidyverse)
+library(janitor)
+
+#load and tidy the data
+
+hw4 <- read_csv("HW4Data.csv") %>%
+  clean_names()
+
+
+
+
+```
+
+###1. Marginal Cost of Abatement
+
+####Sector A
+```{r include = FALSE, message= FALSE}
+
+#Regression analysis for Sector A(how does the data look graphically?)
+plot_a <- ggplot(hw4, aes(x = abatement, y = mc_a)) +
+  geom_point() +
+  geom_smooth()
+
+plot_a #looks very linear
+
+#bc the data looks linear, use a linear regression
+
+lm_a <- lm(mc_a ~ abatement, data = hw4)
+
+lm_a
+# Coefficients:
+# (Intercept)    abatement  
+#     -8.6445       0.5768 
+
+#store the coefficients 
+
+int_a <- lm_a$coefficients[1]
+slope_a <- lm_a$coefficients[2]
+
+
+```
+
+<br>
+$Marginal~Cost~of~Abatement~Sector~A = `r slope_a`*q + `r int_a`$
+
+<br>
+
+####Sector B 
+```{r include = FALSE, message= FALSE}
+
+#Regression analysis for Sector B(how does the data look graphically?)
+plot_b <- ggplot(hw4, aes(x = abatement, y = mc_b)) +
+  geom_point() +
+  geom_smooth()
+
+plot_b #looks very logistic, but sam is going to use a linear model so we will as well !
+
+#if we really want to we can use a logit regression LATER
+
+lm_b <- lm(mc_b ~ abatement, data = hw4)
+
+lm_b
+# Coefficients:
+# (Intercept)    abatement  
+#      9.3177       0.1987 
+
+#store the coefficients 
+
+int_b <- lm_b$coefficients[1]
+slope_b <- lm_b$coefficients[2]
+
+
+```
+
+<br>
+$Marginal~Cost~of~Abatement~Sector~B = `r slope_b`*q + `r int_b`$
+
+<br>
+
+####Sector C
+```{r include= FALSE, message= FALSE}
+
+#Regression analysis for Sector B(how does the data look graphically?)
+plot_c <- ggplot(hw4, aes(x = abatement, y = mc_c)) +
+  geom_point() +
+  geom_smooth()
+
+plot_c #looks very exponetial, but again, Sam said he was going to use lineal for all to make it easier on us later
+
+
+
+lm_c <- lm(mc_c ~ abatement, data = hw4)
+
+lm_c
+# Coefficients:
+# (Intercept)    abatement  
+#    -11.6550       0.7838 
+
+#store the coefficients 
+
+int_c <- lm_c$coefficients[1]
+slope_c <- lm_c$coefficients[2]
+
+
+
+```
+
+<br>
+$Marginal~Cost~of~Abatement~Sector~C = `r slope_c`*q + `r int_c`$
+
+<br>
+
+####Sector D
+```{r include=FALSE, message=FALSE}
+
+#Regression analysis for Sector B(how does the data look graphically?)
+plot_d <- ggplot(hw4, aes(x = abatement, y = mc_d)) +
+  geom_point() +
+  geom_smooth()
+
+plot_d #looks very exponetial, but again, Sam said he was going to use lineal for all to make it easier on us later
+
+
+
+lm_d <- lm(mc_d ~ abatement, data = hw4)
+
+lm_d
+# Coefficients:
+# (Intercept)    abatement  
+#      9.6875       0.2599  
+
+#store the coefficients 
+
+int_d <- lm_d$coefficients[1]
+slope_d <- lm_d$coefficients[2]
+
+
+```
+
+<br>
+$Marginal~Cost~of~Abatement~Sector~D = `r slope_d`*q + `r int_c`$
+
+<br>
+
+####Plot all functions
+```{r include=FALSE, message=FALSE}
+
+#need to figure out how to plot multiple regressions onto one plot
+
+```
+
