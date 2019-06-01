@@ -20,7 +20,7 @@ library(janitor)
 hw4 <- read_csv("HW4Data.csv") %>%
   clean_names()
 
-
+#abatement is quantity. the reduction from current carbon emissions
 
 
 ```
@@ -160,6 +160,21 @@ $Marginal~Cost~of~Abatement~Sector~D = `r slope_d`*q + `r int_c`$
 ```{r include=FALSE, message=FALSE}
 
 #need to figure out how to plot multiple regressions onto one plot
+
+```
+
+###2. Demand Curves of carbon emissions
+
+<br>
+
+####Sector A
+```{r include=FALSE}
+
+#emissions for sector A are 180. 
+
+
+
+
 
 ```
 
