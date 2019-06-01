@@ -170,10 +170,23 @@ $Marginal~Cost~of~Abatement~Sector~D = `r slope_d`*q + `r int_c`$
 ####Sector A
 ```{r include=FALSE}
 
-#emissions for sector A are 180. 
+#emissions for sector A are 180. we need to make a sequence from 0-180 by 10
+quant_a <- seq(0,180,by=10)
 
 
+#create a function for sector A demand curve 
 
+demand_a <- function(q){
+  (slope_a*(180-q)) + int_a
+}
+
+# Derive demand curve using the values above
+d_a <- demand_a(quant_a)
+
+#willing to pay 95.2 for the first ton of emissions 
+
+# Graph it to see if this worked....
+curve(demand_a, from=0, to=180, xlab = "x", ylab = "y")
 
 
 ```
