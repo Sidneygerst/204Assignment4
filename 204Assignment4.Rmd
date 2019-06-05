@@ -157,9 +157,17 @@ $Marginal~Cost~of~Abatement~Sector~D = `r slope_d`*q + `r int_c`$
 <br>
 
 ####Plot all functions
-```{r include=FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE}
 
 #need to figure out how to plot multiple regressions onto one plot
+all_curves <- qplot(x=mc_d, y=abatement, data=hw4)+
+  geom_abline(aes(intercept=int_a, slope=slope_a, col = "red"), data=lm_a) +
+  geom_abline(aes(intercept = int_b, slope=slope_b, col = "green"), data= lm_b) +
+  geom_abline(aes(intercept = int_c, slope = slope_c, col = "blue"), data= lm_c) +
+  geom_abline(aes(intercept = int_d, slope = slope_d, col = "yellow"), data = lm_d) +
+  theme_bw()
+
+all_curves
 
 ```
 
@@ -274,3 +282,10 @@ curve(demand_d, from=0, to=300, xlab = "x", ylab = "y")
 
 $Price~of~Emissions = `r slope_d`*(180-q) + `r int_d`$  
 $Willingness~to~Pay~for~First~Unit = \$87.7$
+
+<br> 
+
+###3. Country X
+
+####a. Cap on Carbon A. 
+
