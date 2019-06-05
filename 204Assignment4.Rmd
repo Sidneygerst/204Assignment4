@@ -191,11 +191,12 @@ curve(demand_a, from=0, to=180, xlab = "x", ylab = "y")
 
 ```
 
-*Demand Curves*  
+ 
 Plugging in 0 for q will result in the willingness to pay for the right to pollute the first unit.
 Sector A:  $Price~of~Emissions = `r slope_a`*(180-q) + `r int_a`$  
 $Willingness~to~Pay~for~First~Unit = \$95.2$ 
 
+<br>
 
 #####Sector B
 ```{r echo = FALSE }
@@ -218,9 +219,14 @@ d_b <- demand_b(quant_b)
 curve(demand_b, from=0, to=200, xlab = "x", ylab = "y")
 ```
 
+  
+$Price~of~Emissions = `r slope_b`*(180-q) + `r int_b`$  
+$Willingness~to~Pay~for~First~Unit = \$49.1$ 
+
+<br>
 
 #####Sector C
-```{r}
+```{r echo = FALSE}
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_c <- seq(0,220,by=10)
 
@@ -239,8 +245,13 @@ d_c <- demand_c(quant_c)
 curve(demand_c, from=0, to=220, xlab = "x", ylab = "y")
 ```
 
+$Price~of~Emissions = `r slope_c`*(180-q) + `r int_c`$  
+$Willingness~to~Pay~for~First~Unit = \$161$ 
+
+<br>
+
 #####Sector D
-```{r}
+```{r echo = FALSE }
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_d <- seq(0,300,by=10)
 
@@ -261,3 +272,5 @@ curve(demand_d, from=0, to=300, xlab = "x", ylab = "y")
 
 ```
 
+$Price~of~Emissions = `r slope_d`*(180-q) + `r int_d`$  
+$Willingness~to~Pay~for~First~Unit = \$87.7$
