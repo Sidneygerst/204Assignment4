@@ -289,5 +289,34 @@ $Willingness~to~Pay~for~First~Unit = \$87.7$
 
 ####a. Cap on Carbon A. 
 
+```{r}
+
+#aggregate the costs of A, B, and C
+#create functions of individual cost curves
+lm_func_a <- function(q){
+  slope_a*q + int_a
+}
+
+curve(lm_func_a, from=0, to=300, xlab = "x", ylab = "y")
+
+lm_func_b <- function(q){
+  slope_b*q +int_b
+}
+
+lm_func_c <- function(q){
+  slope_c*q + int_c
+}
+
+countryx <- function(q){
+  
+  lm_func_a(q) + lm_func_b(q) + lm_func_c(q)
+  
+}
+
+curve(countryx, from=0, to=600, xlab = "x", ylab = "y")
+
+#QUESTION: Do we just cut the aggregate cost curve by 100? 
+
+```
 
 
