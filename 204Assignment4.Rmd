@@ -168,7 +168,7 @@ $Marginal~Cost~of~Abatement~Sector~D = `r slope_d`*q + `r int_c`$
 <br>
 
 ####Sector A
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_a <- seq(0,180,by=10)
@@ -190,6 +190,11 @@ curve(demand_a, from=0, to=180, xlab = "x", ylab = "y")
 
 
 ```
+
+*Demand Curves*  
+Plugging in 0 for q will result in the willingness to pay for the right to pollute the first unit.
+Sector A:  $Price~of~Emissions = `r slope_a`*(180-q) + `r int_a`$  
+$Willingness~to~Pay~for~First~Unit = \$95.2$ 
 
 
 #####Sector B
