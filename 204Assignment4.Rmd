@@ -289,3 +289,5 @@ $Willingness~to~Pay~for~First~Unit = \$87.7$
 
 ####a. Cap on Carbon A. 
 
+
+
