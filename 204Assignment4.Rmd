@@ -198,7 +198,7 @@ $Willingness~to~Pay~for~First~Unit = \$95.2$
 
 
 #####Sector B
-```{r}
+```{r echo = FALSE }
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_b <- seq(0,200,by=10)
 
