@@ -191,3 +191,68 @@ curve(demand_a, from=0, to=180, xlab = "x", ylab = "y")
 
 ```
 
+
+#####Sector B
+```{r}
+#emissions for sector A are 180. we need to make a sequence from 0-180 by 10
+quant_b <- seq(0,200,by=10)
+
+
+#create a function for sector A demand curve 
+
+demand_b <- function(q){
+  (slope_b*(200-q)) + int_b
+}
+
+# Derive demand curve using the values above
+d_b <- demand_b(quant_b)
+
+#willing to pay 95.2 for the first ton of emissions 
+
+# Graph it to see if this worked....
+curve(demand_b, from=0, to=200, xlab = "x", ylab = "y")
+```
+
+
+#####Sector C
+```{r}
+#emissions for sector A are 180. we need to make a sequence from 0-180 by 10
+quant_c <- seq(0,220,by=10)
+
+
+#create a function for sector A demand curve 
+
+demand_c <- function(q){
+  (slope_c*(220-q)) + int_c}
+
+# Derive demand curve using the values above
+d_c <- demand_c(quant_c)
+
+#willing to pay 95.2 for the first ton of emissions 
+
+# Graph it to see if this worked....
+curve(demand_c, from=0, to=220, xlab = "x", ylab = "y")
+```
+
+#####Sector D
+```{r}
+#emissions for sector A are 180. we need to make a sequence from 0-180 by 10
+quant_d <- seq(0,300,by=10)
+
+
+#create a function for sector A demand curve 
+
+demand_d <- function(q){
+  (slope_d*(300-q)) + int_d
+}
+
+# Derive demand curve using the values above
+d_d <- demand_d(quant_d)
+
+#willing to pay 95.2 for the first ton of emissions 
+
+# Graph it to see if this worked....
+curve(demand_d, from=0, to=300, xlab = "x", ylab = "y")
+
+```
+
