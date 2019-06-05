@@ -289,7 +289,7 @@ $Willingness~to~Pay~for~First~Unit = \$87.7$
 
 ####a. Cap on Carbon A. 
 
-```{r}
+```{r echo = FALSE}
 
 #aggregate the costs of A, B, and C
 #create functions of individual cost curves
@@ -297,7 +297,7 @@ lm_func_a <- function(q){
   slope_a*q + int_a
 }
 
-curve(lm_func_a, from=0, to=300, xlab = "x", ylab = "y")
+
 
 lm_func_b <- function(q){
   slope_b*q +int_b
@@ -319,4 +319,32 @@ curve(countryx, from=0, to=600, xlab = "x", ylab = "y")
 
 ```
 
+
+<br>
+
+####b. Tax on Carbon
+```{r echo = FALSE }
+
+#plug 300 into x for the countryx function
+
+#first need to find y=mx+b
+
+#how do?!!?!?!??!?!?!?
+
+
+
+
+```
+
+
+<br>
+
+####c. Cap AND Trade
+```{r echo = FALSE }
+
+
+
+
+
+```
 
