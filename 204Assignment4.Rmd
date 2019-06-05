@@ -316,6 +316,7 @@ countryx <- function(q){
 curve(countryx, from=0, to=600, xlab = "x", ylab = "y")
 
 #QUESTION: Do we just cut the aggregate cost curve by 100? 
+#is the price at 300 above the intercept for any of the sectors?
 
 ```
 
