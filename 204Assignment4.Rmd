@@ -514,3 +514,20 @@ cost_total_cap <- costA_cap + costB_cap + costC_cap
 2. Cost to each sector 
 
 3. Total Tax Revenue. Not applicable, no tax in Cap and Trade.
+
+
+5. Air Pollution
+```{r}
+##1:1 Carbon Emissions:Air Pollution. Air Pollution causes economic damages (health, environmental, etc.) only in the country of which it is emitted. Assume no air pollution regs. 
+
+#a. cap and trade market only covering x, how much pollution in x and y?
+stinky_air_x <- 600 - (unit_A+unit_B+unit_C)
+
+stinky_air_y <- 300
+
+#b. country y enters country x market
+
+
+
+```
+
