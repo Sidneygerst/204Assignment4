@@ -390,12 +390,6 @@ countryx <- function(q){
 curve(countryx, from=0, to=600, xlab = "x", ylab = "y")
 
 
-####QUESTION: Do we just cut the aggregate cost curve by 100? 
-
-#QUESTION: Do we just cut the aggregate cost curve by 100? 
-#is the price at 300 above the intercept for any of the sectors?
-
-
 ```
 
 
@@ -452,16 +446,19 @@ $Cost~to~Sector~C = `r round(costC_X, digits=2)`$
 #find the price at 300 tons of abatement for each sector 
 tax_price <- agg_abate_x(300) #$39.4 
 
+
+## abatement
+
 unit_A <- (tax_price - int_a)/slope_a # 83.3
 unit_B <- (tax_price - int_b)/slope_b # 151
 unit_C <- (tax_price - int_c)/slope_c # 65.2
 
 #solve the benefit for b, tax for carbon
-costtax_A_X <- integrate(lm_func_a, 0, unit_A)$value
-costtax_B_X <- integrate(lm_func_b, 0, unit_B)$value
-costtax_C_X <- integrate(lm_func_c, 0, unit_C)$value
-costtax_total <- costtax_A_X + costtax_B_X + costtax_C_X
-tax_revenue_X <- 300*tax_price
+costtax_A_X <- integrate(lm_func_a, 0, unit_A)$value  #2019,76
+costtax_B_X <- integrate(lm_func_b, 0, unit_B)$value  #1925.49
+costtax_C_X <- integrate(lm_func_c, 0, unit_C)$value  #2753.63
+costtax_total <- costtax_A_X + costtax_B_X + costtax_C_X  #5879.81
+tax_revenue_X <- 300*tax_price  #11,828
 
 
 ```
@@ -488,9 +485,27 @@ $Total~Tax~Revenue = `r round(tax_revenue_X, digits=2)`$
 #####C. Cap and Trade
 ```{r echo = FALSE }
 
+## Need to find trading that brings abatement for all countries to 100 under optimal conditions
+
+##Sector A
+#abates by 83.3, buys 16.7 from Sector B
+
+costA_cap <- integrate(lm_func_a, 0, unit_A)$value + (16.7*tax_price)
+
+##Sector B
+#abates by 151.5, sells 51.5 to A and C   
+
+costB_cap <- integrate(lm_func_b, 0, unit_B)$value - (51.5*tax_price)
+
+##Sector C
+#abates by 65.2, buys 34.8 from Sector B
+
+costC_cap <- integrate(lm_func_c, 0, unit_C)$value + (34.8*tax_price)
+
+#integratethe lm functions to find the total cost of a cap on carbon
 
 
-
+cost_total_cap <- costA_cap + costB_cap + costC_cap
 
 ```
 
