@@ -603,11 +603,10 @@ C will buy `r round(C_trans_XY, digits = 2)` with a final abatement of `r round(
 
 D will sell `r round(D_trans_XY, digits = 2)`with a final abatement of `r round(D_trade_nc_XY, digits = 2)`
 
-D will sell `r round(D_trans_XY, digits = 2)` with a final abatement of `r round(D_trade_nc_XY, digits = 2)`
 
 
-5. Air Pollution
-```{r}
+###5. Air Pollution
+```{r include = FALSE}
 
 ##1:1 Carbon Emissions:Air Pollution. Air Pollution causes economic damages (health, environmental, etc.) only in the country of which it is emitted. Assume no air pollution regs. 
 
@@ -625,10 +624,21 @@ stinky_air_nooob_y <- 300 - unit_d_Y  #223
 ##Country X increases pollution, country Y decreases pollution
 
 
-c. 
+#c. 
 ##net pollution is equal, but unequal distribution of local pollution depending on how the trade is conducted
 
 ```
 
+#####a. Cap and trade market only covering x, how much pollution in X and Y?
+
+There are 300 tons of pollution for both Country X and Y
+
+#####b. Country Y enters Coutnry X market
+
+Country X increases pollution (`r round(stinky_air_noob_x, digits = 2)` tons) from 300 tons and Country Y decreases pollution (`r round(stinky_air_nooob_y, digit = 2)` tons) from 300 tons. 
+
+#####c. Advice
+
+Net pollution is equal, but there will be an unequal distribution of local pollution depending on how the trade is conducted because Country Y will have a sold credits to Country X. 
 
 
