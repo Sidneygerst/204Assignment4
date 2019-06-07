@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #load packages
 library(tidyverse)
 library(janitor)
+library(stargazer)
 
 #load and tidy the data
 
@@ -156,27 +157,73 @@ $Marginal~Cost~of~Abatement~Sector~D = `r slope_d`*q + `r int_c`$
 
 <br>
 
-####Plot all functions
-```{r echo=FALSE, message=FALSE}
+####Table of the regression coefficients 
+```{r echo = FALSE, results = 'asis'}
+#Stargazer table for the regressions
 
-#need to figure out how to plot multiple regressions onto one plot
-all_curves <- qplot(x=mc_d, y=abatement, data=hw4)+
-  geom_abline(aes(intercept=int_a, slope=slope_a, col = "red"), data=lm_a) +
-  geom_abline(aes(intercept = int_b, slope=slope_b, col = "green"), data= lm_b) +
-  geom_abline(aes(intercept = int_c, slope = slope_c, col = "blue"), data= lm_c) +
-  geom_abline(aes(intercept = int_d, slope = slope_d, col = "yellow"), data = lm_d) +
-  theme_bw()
+mc_table <- stargazer(lm_a, lm_b, lm_c, lm_d,
+                          type = 'html', 
+                          #single.row = TRUE,
+                          align = TRUE,
+                          title = "Table 1. Marginal abatement cost function for each sector.",
+                          dep.var.labels = c("A", "B","C","D"), 
+                          covariate.labels = c("Abatement", "Constant"),
+                          add.lines = list(c("AIC", round(AIC(lm_a),1), round(AIC(lm_b),1), round(AIC(lm_c),1), round(AIC(lm_d),1))))
 
-all_curves
 
 ```
+
+<br>
+ 
+####Plot all Abatement Curves 
+```{r echo=FALSE, message=FALSE}
+
+# gather df so graphing is easier
+# Marginal Abatement Cost dataframe
+mac_df <- gather(hw4, key = "sector", value = "marginal_cost", "mc_a", "mc_b", "mc_c", "mc_d")
+
+
+
+# graph it!
+# can change line/point colors if we want
+cols <- c("mc_a" = "hotpink1", "mc_b" = "royalblue1", "mc_c" = "seagreen3", "mc_d" = "coral1")
+labels <- c("mc_a" = "A", "mc_b" = "B", "mc_c" = "C", "mc_d" = "D")
+
+
+all_curves <- ggplot(mac_df, aes(x = abatement, y = marginal_cost)) +
+  geom_point(aes(color = sector)) +
+  geom_smooth(aes(color = sector), se = FALSE, method = lm) +
+#  facet_grid(~sector) +
+  scale_color_manual(values = cols,
+                     labels = labels,
+                     name = "Sector") + 
+  theme_classic() + 
+  labs(x = "Carbon Abatement (tons)", y = "Abatement Cost ($/ton)")
+all_curves
+
+
+#need to figure out how to plot multiple regressions onto one plot
+# no <- qplot(x=mc_d, y=abatement, data=hw4)+
+#   geom_abline(aes(intercept=int_a, slope=slope_a, col = "red"), data=lm_a) +
+#   geom_abline(aes(intercept = int_b, slope=slope_b, col = "green"), data= lm_b) +
+#   geom_abline(aes(intercept = int_c, slope = slope_c, col = "blue"), data= lm_c) +
+#   geom_abline(aes(intercept = int_d, slope = slope_d, col = "yellow"), data = lm_d) +
+#   theme_bw()
+# 
+# no
+
+
+```
+
+
+
 
 ###2. Demand Curves of carbon emissions
 
 <br>
 
-####Sector A
-```{r echo=FALSE}
+#####Sector A
+```{r include=FALSE}
 
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_a <- seq(0,180,by=10)
@@ -207,7 +254,7 @@ $Willingness~to~Pay~for~First~Unit = \$95.2$
 <br>
 
 #####Sector B
-```{r echo = FALSE }
+```{r include = FALSE }
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_b <- seq(0,200,by=10)
 
@@ -234,7 +281,7 @@ $Willingness~to~Pay~for~First~Unit = \$49.1$
 <br>
 
 #####Sector C
-```{r echo = FALSE}
+```{r include = FALSE}
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_c <- seq(0,220,by=10)
 
@@ -259,7 +306,7 @@ $Willingness~to~Pay~for~First~Unit = \$161$
 <br>
 
 #####Sector D
-```{r echo = FALSE }
+```{r include = FALSE }
 #emissions for sector A are 180. we need to make a sequence from 0-180 by 10
 quant_d <- seq(0,300,by=10)
 
@@ -283,13 +330,40 @@ curve(demand_d, from=0, to=300, xlab = "x", ylab = "y")
 $Price~of~Emissions = `r slope_d`*(180-q) + `r int_d`$  
 $Willingness~to~Pay~for~First~Unit = \$87.7$
 
+<br>
+
+####Combined Demand Curves
+```{r echo = FALSE, warning=FALSE}
+
+#Plot the demands on the same chart
+#"mc_a" = "hotpink1", "mc_b" = "royalblue1", "mc_c" = "seagreen3", "mc_d" = "coral1"
+cols_demand <- c("hotpink1", "royalblue1", "seagreen3", "coral1")
+labels_demand <- c("A", "B", "C", "D")
+demand_graph <- ggplot(data.frame(x=c(0,350)), aes(x=x)) + # data.frame gives ggplot something to graph
+  stat_function(fun=demand_a, geom = "line", aes(color = "A"), size = 1) +
+  stat_function(fun=demand_b, geom = "line", aes(color = "B"), size = 1) +
+  stat_function(fun=demand_c, geom = "line", aes(color = "C"), size = 1) +
+  stat_function(fun=demand_d, geom = "line", aes(color = "D"), size = 1) +
+  scale_y_continuous(limits= c(0,175), expand = c(0,0)) +
+  scale_x_continuous(limits= c(0, 400), expand = c(0,0)) +
+  scale_color_manual(values = cols_demand,
+                     labels = labels_demand,
+                     name = "Sector") + 
+  theme_classic() + 
+  labs(x = "Carbon Abatement (tons)", y = "Abatement Cost ($/ton)")
+
+demand_graph
+
+
+```
+
+
 <br> 
 
 ###3. Country X
 
-####a. Cap on Carbon A. 
-
-```{r}
+#####A. Cap on Carbon. 
+```{r include = FALSE}
 
 #aggregate the costs of A, B, and C
 #create functions of individual cost curves
@@ -297,7 +371,7 @@ lm_func_a <- function(q){
   slope_a*q + int_a
 }
 
-curve(lm_func_a, from=0, to=300, xlab = "x", ylab = "y")
+
 
 lm_func_b <- function(q){
   slope_b*q +int_b
@@ -315,8 +389,113 @@ countryx <- function(q){
 
 curve(countryx, from=0, to=600, xlab = "x", ylab = "y")
 
+
 ####QUESTION: Do we just cut the aggregate cost curve by 100? 
+
+#QUESTION: Do we just cut the aggregate cost curve by 100? 
+#is the price at 300 above the intercept for any of the sectors?
+
 
 ```
 
 
+
+```{r echo = FALSE }
+#THIS IS THE AGGREGATE COST OF ABATEMENT  
+
+#aggregate horizontally
+slope_x = slope_a * slope_b + slope_a * slope_c + slope_b * slope_c
+agg_y_int_x = (int_a*slope_b*slope_c/slope_x) + (int_b*slope_a*slope_c/slope_x) + (int_c*slope_b*slope_a/slope_x)
+agg_coeff_x = (slope_a*slope_b*slope_c/slope_x)
+
+
+#create the aggregate function
+agg_abate_x <- function(q){
+  agg_coeff_x*q + agg_y_int_x
+}
+
+
+#integratethe lm functions to find the total cost of a cap on carbon
+
+costA_X <- integrate(lm_func_a, 0, 100)$value
+costB_X <- integrate(lm_func_b, 0, 100)$value
+costC_X <- integrate(lm_func_c, 0, 100)$value
+cost_total <- costA_X + costB_X + costC_X
+
+
+
+
+
+
+```
+
+
+1. Total Cost of Carbon Cap   
+
+$Total~Cost = `r round(cost_total, digits=2)`$   
+
+2. Cost to each Sector 
+
+$Cost~to~Sector~A = `r round(costA_X, digits=2)`$    
+
+$Cost~to~Sector~B = `r round(costB_X, digits=2)`$    
+
+$Cost~to~Sector~C = `r round(costC_X, digits=2)`$ 
+
+3. There is no tax revenue with a cap on carbon
+
+<br>
+
+#####B. Tax on Carbon
+```{r echo = FALSE }
+
+#find the price at 300 tons of abatement for each sector 
+tax_price <- agg_abate_x(300) #$39.4 
+
+unit_A <- (tax_price - int_a)/slope_a # 83.3
+unit_B <- (tax_price - int_b)/slope_b # 151
+unit_C <- (tax_price - int_c)/slope_c # 65.2
+
+#solve the benefit for b, tax for carbon
+costtax_A_X <- integrate(lm_func_a, 0, unit_A)$value
+costtax_B_X <- integrate(lm_func_b, 0, unit_B)$value
+costtax_C_X <- integrate(lm_func_c, 0, unit_C)$value
+costtax_total <- costtax_A_X + costtax_B_X + costtax_C_X
+tax_revenue_X <- 300*tax_price
+
+
+```
+
+
+1. Total Cost of Carbon Tax   
+
+$Total~Cost = `r round(costtax_total, digits=2)`$   
+
+2. Cost to each Sector 
+
+$Cost~to~Sector~A = `r round(costtax_A_X, digits=2)`$    
+
+$Cost~to~Sector~B = `r round(costtax_B_X, digits=2)`$    
+
+$Cost~to~Sector~C = `r round(costtax_C_X, digits=2)`$ 
+
+3. Total Tax Revenue
+
+$Total~Tax~Revenue = `r round(tax_revenue_X, digits=2)`$
+
+<br>
+
+#####C. Cap and Trade
+```{r echo = FALSE }
+
+
+
+
+
+```
+
+1. Total Cost of Carbon Cap and Trade
+
+2. Cost to each sector 
+
+3. Total Tax Revenue. Not applicable, no tax in Cap and Trade.
