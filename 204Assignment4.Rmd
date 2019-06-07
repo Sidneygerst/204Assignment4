@@ -511,9 +511,97 @@ cost_total_cap <- costA_cap + costB_cap + costC_cap
 
 1. Total Cost of Carbon Cap and Trade
 
+$Total~Cost = `r round(cost_total_cap, digits=2)`$
+
 2. Cost to each sector 
 
+$Cost~to~Sector~A = `r round(costA_cap, digits=2)`$    
+
+$Cost~to~Sector~B = `r round(costB_cap, digits=2)`$    
+
+$Cost~to~Sector~C = `r round(costC_cap, digits=2)`$
+
 3. Total Tax Revenue. Not applicable, no tax in Cap and Trade.
+
+<br>
+
+###4. Country Y
+```{r include = FALSE}
+
+#Want to find out if Country Y (Sector D ) has an incentive to go into County X's Market
+#Place 300 into Sector D's ln function
+
+lm_func_d <- function(q){
+  slope_d*q + int_d
+}
+
+#this is for the last unit. We want the first unit
+countryY <- lm_func_d(300) #87.7
+
+#aggregate demand for ABCD
+slopeY <- slope_a*slope_b*slope_c + slope_d*slope_b*slope_c + slope_a*slope_d*slope_c + slope_a*slope_b*slope_d
+agg_y_int = (int_a*slope_b*slope_c*slope_d/slopeY) + (int_b*slope_a*slope_c*slope_d/slopeY) + (int_c*slope_b*slope_a*slope_d/slopeY) + (int_d*slope_b*slope_c*slope_a/slopeY)
+agg_coeff_Y = (slope_a*slope_b*slope_c*slope_d/slopeY)
+
+#the aggregate function
+agg_abate_Y <- function(q){
+  agg_coeff_Y*q + agg_y_int
+}
+
+#optimal tax
+tax_price_Y <- agg_abate_Y(300)
+unit_a_Y <- (tax_price_Y - int_a)/slope_a
+unit_b_Y <- (tax_price_Y - int_b)/slope_b
+unit_c_Y <- (tax_price_Y - int_c)/slope_c
+unit_d_Y <- (tax_price_Y - int_d)/slope_d
+
+int_Y <- (int_d - agg_y_int)/agg_coeff_Y
+
+
+
+
+#costs 
+cost_tax_a_Y <- integrate(lm_func_a, 0, unit_a_Y)$value
+cost_tax_b_Y <- integrate(lm_func_b, 0, unit_b_Y)$value
+cost_tax_c_Y <- integrate(lm_func_c, 0, unit_c_Y)$value
+cost_tax_d_Y <- integrate(lm_func_d, 0, unit_d_Y)$value
+
+
+#cap and trade with country y and country x and total costs 
+A_trade_xy <- (180-unit_a_Y-80)
+B_trade_xy <- (200-unit_b_Y-100)
+C_trade_xy <-(220-unit_c_Y-120)
+D_trade_xy <-(300-unit_d_Y-300)
+
+#figure out how much to sell/buy
+A_trans_XY <- A_trade_xy*tax_price_Y #A buy this
+B_trans_XY <- B_trade_xy*tax_price_Y #B sells this 
+C_trans_XY <- C_trade_xy*tax_price_Y #C buys this 
+D_trans_XY <- D_trade_xy*tax_price_Y #D sells this
+
+#find the final abatement 
+A_trade_nc_XY <- cost_tax_a_Y + A_trans_XY
+B_trade_nc_XY <- cost_tax_b_Y + B_trans_XY
+C_trade_nc_XY <- cost_tax_c_Y + C_trans_XY
+D_trade_nc_XY <- cost_tax_d_Y + D_trans_XY
+
+#the totals
+total_costs_x_ABCD <- A_trade_nc_XY + B_trade_nc_XY + C_trade_nc_XY + D_trade_nc_XY
+total_costs_y_ABCD <- D_trade_nc_XY
+
+
+
+```
+
+ The total cost of country X is $`r round(total_costs_x_ABCD, digits = 2)` and the total cost for country Y is \$`r round(total_costs_y_ABCD, digits = 2)`. Because Y is negative, they have benefits to gain from entering the cap and trade program with country X.
+ 
+A will buy `r round(A_trans_XY, digits = 2)` with a final abatement of `r round(A_trade_nc_XY, digits = 2)` 
+
+B will sell `r round(B_trans_XY, digits = 2)` with a final abatement of `r round(B_trade_nc_XY, digits = 2)`
+
+C will buy `r round(C_trans_XY, digits = 2)` with a final abatement of `r round(C_trade_nc_XY, digits = 2)`
+
+D will sell `r round(D_trans_XY, digits = 2)`with a final abatement of `r round(D_trade_nc_XY, digits = 2)`
 
 
 5. Air Pollution
@@ -521,13 +609,17 @@ cost_total_cap <- costA_cap + costB_cap + costC_cap
 ##1:1 Carbon Emissions:Air Pollution. Air Pollution causes economic damages (health, environmental, etc.) only in the country of which it is emitted. Assume no air pollution regs. 
 
 #a. cap and trade market only covering x, how much pollution in x and y?
-stinky_air_x <- 600 - (unit_A+unit_B+unit_C)
+stinky_air_x <- 600 - (unit_A+unit_B+unit_C) #300
 
-stinky_air_y <- 300
+stinky_air_y <- 300 #300
 
 #b. country y enters country x market
 
+stinky_air_noob_x <- 600 - (unit_a_Y+unit_b_Y+unit_c_Y) #377
 
+stinky_air_nooob_y <- 300 - unit_d_Y  #223
 
-```
+##Country X increases pollution, country Y decreases pollution
 
+c. 
+##net pollution is equal, but unequal distribution of local pollution depending on how the trade is conducted

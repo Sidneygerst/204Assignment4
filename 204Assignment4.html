@@ -499,11 +499,43 @@ F Statistic (df = 1; 14)
 <div id="c.-cap-and-trade" class="section level5">
 <h5>C. Cap and Trade</h5>
 <ol style="list-style-type: decimal">
-<li><p>Total Cost of Carbon Cap and Trade</p></li>
-<li><p>Cost to each sector</p></li>
-<li><p>Total Tax Revenue. Not applicable, no tax in Cap and Trade.</p></li>
+<li>Total Cost of Carbon Cap and Trade</li>
 </ol>
+<p><span class="math inline">\(Total~Cost = 5879.81\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Cost to each sector</li>
+</ol>
+<p><span class="math inline">\(Cost~to~Sector~A = 1941.04\)</span></p>
+<p><span class="math inline">\(Cost~to~Sector~B = 1661.8\)</span></p>
+<p><span class="math inline">\(Cost~to~Sector~C = 2276.97\)</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Total Tax Revenue. Not applicable, no tax in Cap and Trade.</li>
+</ol>
+<p><br></p>
 </div>
+</div>
+<div id="country-y" class="section level3">
+<h3>4. Country Y</h3>
+<p>The total cost of country X is $4729.1 and the total cost for country Y is $-778.32. Because Y is negative, they have benefits to gain from entering the cap and trade program with country X.</p>
+<p>A will buy 993.89 with a final abatement of 1698.99</p>
+<p>B will sell -91.53 with a final abatement of 1924.55</p>
+<p>C will buy 1403.96 with a final abatement of 1883.88</p>
+<p>D will sell -2306.32with a final abatement of -778.32</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Air Pollution</li>
+</ol>
+<pre class="r"><code>##1:1 Carbon Emissions:Air Pollution. Air Pollution causes economic damages (health, environmental, etc.) only in the country of which it is emitted. Assume no air pollution regs. 
+
+#a. cap and trade market only covering x, how much pollution in x and y?
+stinky_air_x &lt;- 600 - (unit_A+unit_B+unit_C)
+
+stinky_air_y &lt;- 300
+
+#b. country y enters country x market
+
+stinky_air_noob_x &lt;- 600 - (unit_a_Y+unit_b_Y+unit_c_Y)
+
+stinky_air_nooob_y &lt;- 300 - unit_d_Y</code></pre>
 </div>
 
 
