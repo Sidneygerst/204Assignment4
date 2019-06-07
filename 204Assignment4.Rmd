@@ -621,5 +621,6 @@ stinky_air_nooob_y <- 300 - unit_d_Y  #223
 
 ##Country X increases pollution, country Y decreases pollution
 
+
 c. 
 ##net pollution is equal, but unequal distribution of local pollution depending on how the trade is conducted
