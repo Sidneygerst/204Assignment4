@@ -603,9 +603,12 @@ C will buy `r round(C_trans_XY, digits = 2)` with a final abatement of `r round(
 
 D will sell `r round(D_trans_XY, digits = 2)`with a final abatement of `r round(D_trade_nc_XY, digits = 2)`
 
+D will sell `r round(D_trans_XY, digits = 2)` with a final abatement of `r round(D_trade_nc_XY, digits = 2)`
+
 
 5. Air Pollution
 ```{r}
+
 ##1:1 Carbon Emissions:Air Pollution. Air Pollution causes economic damages (health, environmental, etc.) only in the country of which it is emitted. Assume no air pollution regs. 
 
 #a. cap and trade market only covering x, how much pollution in x and y?
@@ -624,3 +627,8 @@ stinky_air_nooob_y <- 300 - unit_d_Y  #223
 
 c. 
 ##net pollution is equal, but unequal distribution of local pollution depending on how the trade is conducted
+
+```
+
+
+
